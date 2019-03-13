@@ -1,0 +1,39 @@
+<!doctype html><html><head>
+    <title>The Big Race</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    </head>
+    <body><h1>Whos the fastest</h1>
+    
+    </body>
+    <script src="./assets/race.js"></script>
+    <script type="text/javascript">
+        function displayInventory(table) {<!--from w w  w. j a  va 2  s  . c  o  m-->
+            document.write("<TABLE BORDER=OFF>");
+            //document.write("<TH>Item Number</TH><TH>Item Name</TH><TH>Model Number</TH><TH>Quantity</TH>");
+            for(x=1; x<=11; x++) {
+                document.write("<TR><TD>",x,"</TD>");
+                for(y=0; y<=11; y++){
+                    document.write("<TD>",table[x][y],"</TD>");
+                }
+                document.write("</TR>");
+            }
+            document.write("</TABLE>");
+        }
+        part1 = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
+        part2 = new Array("0","A","9","8","1","A","3","9","2","0","1","1");
+        part3 = new Array("1","6","3","8","9","4","0","A","5","2","B","7");
+        part4 = new Array("1","9","8","4","1","B","3","8","2","6","2","5");
+        part5 = new Array("2","9","7","B","4","0","1","6","3","8","A","5");
+        part6 = new Array("2","6","1","0","9","4","8","7","8","6","2","6");
+        part7 = new Array("3","4","5","7","1","9","2","0","6","8","B","A");
+        part8 = new Array("3","5","6","A","A","0","2","3","B","7","2","4");
+        part9 = new Array("4","0","6","0","7","9","A","2","1","8","3","5");
+        part10 = new Array("4","B","B","0","6","5","6","6","7","1","0","A");
+        part11 = new Array("5","2","8","1","A","B","3","4","7","9","0","6");
+        part12 = new Array("5","7","5","0","6","8","4","B","8","9","3","4");
+        brakeParts = new Array(part1,part2,part3,part4,part5,part6,part7,part8,part9,part10,part11,part12);
+        displayInventory(brakeParts);
+    </script>
+</html>
+
+
