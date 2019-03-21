@@ -1,4 +1,10 @@
 var variable = 0;
+var arr_length = 12;
+var merge_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
+var merge_start = 0;
+var merge_length = 2;
+
+
 // var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
 //  "1","6","3","8","9","4","0","A","5","2","B","7","1","9","8","4","1","B","3","8","2","6","2","5",
 //  "2","9","7","B","4","0","1","6","3","8","A","5","2","6","1","0","9","4","8","7","8","6","2","6",
@@ -46,8 +52,7 @@ function draw_grid( rctx, rminor, rmajor, rstroke, rfill  )
     }
     rctx.restore( );
 }
-function draw_rect( ctx, stroke, fill )
-{
+function draw_rect( ctx, stroke, fill ){
     stroke = stroke || 'lightgrey';
     fill = fill || 'dimgrey';
     ctx.save( );
@@ -60,6 +65,16 @@ function draw_rect( ctx, stroke, fill )
     ctx.restore( );
 }
 
+function draw_array( actx, disp_array, x, y ){
+    actx.save( );
+    var curr_array_string = disp_array.join("  ");
+    hex_sort(1,'a');
+    actx.fillStyle = 'black';
+    actx.font = "10px Arial";
+    actx.fillText( curr_array_string, x, y );
+    actx.restore( );
+}
+
 function pass(){
     //continue;
 }
@@ -69,11 +84,47 @@ function stepInsertionSort(){
 }
 
 function stepMergeSort(){
+//arr_length = 12;
+//merge_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
+//var merge_start = 0;
+//var merge_length = 2;
+//sub_array_length = 1;
 
+    /*
+        check elements with sub array of merge_length
+        if sub_array_length == 1
+            if (!hex_sort(array[merger start], array[merge_start+1] )
+                swap     
+            merge_start +2;
+        
+        if sub_array_length == 2
+
+            do crap
+
+        if sub_array_length == 4
+
+            do crap
+
+        if (merge_start == 12)
+            merger_start = 0
+            sub_array_length * 2
+        if sub_array_length = 8
+            done    
+        
+    */
 }
 
 function stepQuicksort(){
+    
+}
 
+function hex_sort(hex_one, hex_two){
+    if((parseInt(hex_one, 16)) > (parseInt(hex_two, 16))){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 function mergeSort (arr) {
