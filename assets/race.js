@@ -5,6 +5,17 @@ var merge_start = 0;
 var merge_length = 2;
 
 
+//vars for insterion sort
+var arr[];
+var length = 12;
+var i = 1;
+var j = 0;
+var tmp;
+var insertionDone = false;
+var FORWARD = 0;
+var BACK = 1;
+var direction = FORWARD;
+
 // var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
 //  "1","6","3","8","9","4","0","A","5","2","B","7","1","9","8","4","1","B","3","8","2","6","2","5",
 //  "2","9","7","B","4","0","1","6","3","8","A","5","2","6","1","0","9","4","8","7","8","6","2","6",
@@ -77,10 +88,60 @@ function draw_array( actx, disp_array, x, y ){
 
 function pass(){
     //continue;
+	
+	/* 
+		- call all three step functions
+		
+		- check if any are done
+			
+	*/
+	
+	
 }
 
 function stepInsertionSort(){
-    //continue;
+   if (j == 0)
+	{
+		direction = FORWARD;
+	}
+	if (i < length)
+	{
+		if (direction == FORWARD)
+		{
+			if (arr[i] < arr[i - 1])
+			{
+				tmp = arr[i];
+				arr[i] = arr[i - 1];
+				arr[i - 1] = tmp;
+				direction = BACK;
+				j = i - 1;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		else // Direction is BACK
+		{
+			if (arr[j] < arr[j - 1])
+			{
+				tmp = arr[j];
+				arr[j] = arr[j - 1];
+				arr[j - 1] = tmp;
+				j--;
+			}
+			else
+			{
+				direction = FORWARD;
+			}
+		}
+	}
+	else
+	{
+		insertionDone = true;
+	}
+	
+	//call to update UI
 }
 
 function stepMergeSort(){
