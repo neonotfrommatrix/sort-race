@@ -8,8 +8,8 @@ var merge_length = 2;
 //vars for insterion sort
 var arr[];
 var length = 12;
-var i = 1;
-var j = 0;
+var ins_i = 1;
+var ins_j = 0;
 var tmp;
 var insertionDone = false;
 var FORWARD = 0;
@@ -100,35 +100,35 @@ function pass(){
 }
 
 function stepInsertionSort(){
-   if (j == 0)
+   if (ins_j == 0)
 	{
 		direction = FORWARD;
 	}
-	if (i < length)
+	if (ins_i < length)
 	{
 		if (direction == FORWARD)
 		{
-			if (arr[i] < arr[i - 1])
+			if (arr[ins_i] < arr[ins_i - 1])
 			{
-				tmp = arr[i];
-				arr[i] = arr[i - 1];
-				arr[i - 1] = tmp;
+				tmp = arr[ins_i];
+				arr[ins_i] = arr[ins_i - 1];
+				arr[ins_i - 1] = tmp;
 				direction = BACK;
-				j = i - 1;
+				ins_j = ins_i - 1;
 			}
 			else
 			{
-				i++;
+				ins_i++;
 			}
 		}
 		else // Direction is BACK
 		{
-			if (arr[j] < arr[j - 1])
+			if (arr[ins_j] < arr[ins_j - 1])
 			{
-				tmp = arr[j];
-				arr[j] = arr[j - 1];
-				arr[j - 1] = tmp;
-				j--;
+				tmp = arr[ins_j];
+				arr[ins_j] = arr[ins_j - 1];
+				arr[ins_j - 1] = tmp;
+				ins_j--;
 			}
 			else
 			{
