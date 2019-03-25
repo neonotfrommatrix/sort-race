@@ -21,7 +21,9 @@
         //     }
         //     document.write("</TABLE>");
         // }
-        part1 = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
+        merge_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
+        quick_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
+        insert_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
         // part2 = new Array("0","A","9","8","1","A","3","9","2","0","1","1");
         // part3 = new Array("1","6","3","8","9","4","0","A","5","2","B","7");
         // part4 = new Array("1","9","8","4","1","B","3","8","2","6","2","5");
@@ -59,8 +61,37 @@
         draw_title(quickcontext, "Quicksort", 100 , 30);
         draw_grid( quickcontext, 10, 50, 'blue', 'black' );
         
-        draw_array(insertcontext, part1, 102 , 59)
+        
         //draw_rect( context );
+        var y = 59;
+
+        // will loop until one of the sorts changes winner from null to their name of "merge, quick, insert"
+        while (!winner){
+            
+            //Calls each step to allow one complex operation
+            stepMergeSort();
+            stepQuicksort();
+            stepInsertionSort();
+
+            //Updates the screen to current status of arrays
+            draw_array(insertcontext, insert_array, 102 , y);
+            draw_array(mergecontext, merge_array, 102 , y);
+            draw_array(quickcontext, quick_array, 102 , y);
+            
+            // move down to print a new line. Yes x and y are reversed
+            y = y + 10;
+        }
+
+        // checks if there is a winner yet
+        if(winner == "merge"){
+            draw_title(mergecontext, "WINNER", 102, y + 30);
+        }
+        else if(winner == "quick"){
+            draw_title(quickcontext, "WINNER", 102, y + 30);
+        }
+        else if(winner == "insert"){
+            draw_title(insertcontext, "WINNER", 102, y + 30);
+        }
         
     </script>
 </html>

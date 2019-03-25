@@ -1,8 +1,7 @@
-var variable = 0;
-var arr_length = 12;
-var merge_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
-var merge_start = 0;
-var merge_length = 2;
+var arr_length = 12;                //length of array
+var winner = null;                  //holds winner name when it is declared
+var merge_start = 0;                //position within array to start sort at
+var merge_sub_array_length = 1;     //position within sorting algorithm
 
 
 // var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
@@ -65,61 +64,17 @@ function draw_rect( ctx, stroke, fill ){
     ctx.restore( );
 }
 
-function draw_array( actx, disp_array, x, y ){
+function draw_array( actx, temp_arr, x, y ){
     actx.save( );
-    var curr_array_string = disp_array.join("  ");
-    hex_sort(1,'a');
+    var curr_array_string = temp_arr.join("  ");
     actx.fillStyle = 'black';
     actx.font = "10px Arial";
     actx.fillText( curr_array_string, x, y );
     actx.restore( );
 }
 
-function pass(){
-    //continue;
-}
-
-function stepInsertionSort(){
-    //continue;
-}
-
-function stepMergeSort(){
-//arr_length = 12;
-//merge_array = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
-//var merge_start = 0;
-//var merge_length = 2;
-//sub_array_length = 1;
-
-    /*
-        check elements with sub array of merge_length
-        if sub_array_length == 1
-            if (!hex_sort(array[merger start], array[merge_start+1] )
-                swap     
-            merge_start +2;
-        
-        if sub_array_length == 2
-
-            do crap
-
-        if sub_array_length == 4
-
-            do crap
-
-        if (merge_start == 12)
-            merger_start = 0
-            sub_array_length * 2
-        if sub_array_length = 8
-            done    
-        
-    */
-}
-
-function stepQuicksort(){
-    
-}
-
 function hex_sort(hex_one, hex_two){
-    if((parseInt(hex_one, 16)) > (parseInt(hex_two, 16))){
+    if((parseInt(hex_one, 16)) > (parseInt(hex_two, 16))){      
         return true;
     }
     else{
@@ -127,21 +82,549 @@ function hex_sort(hex_one, hex_two){
     }
 }
 
-function mergeSort (arr) {
-    if (arr.length < 2) {
-      return arr;
+function stepInsertionSort(){
+    //continue;
+}
+
+function stepQuicksort(){
+    //continue;
+}
+
+//uses sub_array length to decide sorting intensity, sorts first by 3 then 6 to sort all 12 items.
+function stepMergeSort(){
+    if(merge_sub_array_length == 1){
+        if (hex_sort(merge_array[merge_start], merge_array[merge_start+1])){
+            var temp = merge_array[merge_start];
+            merge_array[merge_start] = merge_array[merge_start + 1];
+            merge_array[merge_start + 1] = temp;
+        }
+        merge_start += 3;
+        if(merge_start == arr_length){
+            merge_sub_array_length = 2;
+            merge_start = 0;
+        }
+        return;
+    }
+    else if(merge_sub_array_length == 2){
+        if(hex_sort(merge_array[merge_start], merge_array[merge_start+2])){
+            var temp = merge_array[merge_start];
+            var temp2 = merge_array[merge_start + 1];
+            merge_array[merge_start] = merge_array[merge_start + 2];
+            merge_array[merge_start + 1] = temp;
+            merge_array[merge_start + 2] = temp2;
+        }
+        else if (hex_sort(merge_array[merge_start+1], merge_array[merge_start+2])){
+            var temp = merge_array[merge_start+1];
+            merge_array[merge_start+1] = merge_array[merge_start + 2];
+            merge_array[merge_start + 2] = temp;
+        }
+        merge_start += 3;
+        if(merge_start == arr_length){
+            merge_sub_array_length = 3;
+            merge_start = 0;
+        }
+        return;
+    }
+    else if(merge_sub_array_length == 3){
+        if(hex_sort(merge_array[merge_start], merge_array[merge_start+3])){
+            var temp = merge_array[merge_start];
+            var temp2 = merge_array[merge_start + 1];
+            var temp3 = merge_array[merge_start + 2];
+            merge_array[merge_start] = merge_array[merge_start + 3];
+            merge_array[merge_start + 1] = temp;
+            merge_array[merge_start + 2] = temp2;
+            merge_array[merge_start + 3] = temp3;
+        }
+        else if (hex_sort(merge_array[merge_start + 1], merge_array[merge_start+3])){
+            var temp = merge_array[merge_start + 1];
+            var temp2 = merge_array[merge_start + 2];
+            merge_array[merge_start + 1] = merge_array[merge_start + 3];
+            merge_array[merge_start + 2] = temp;
+            merge_array[merge_start + 3] = temp2;
+        }
+        else if (hex_sort(merge_array[merge_start + 2], merge_array[merge_start+3])){
+            var temp = merge_array[merge_start + 2];
+            merge_array[merge_start + 2] = merge_array[merge_start + 3];
+            merge_array[merge_start + 3] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 1], merge_array[merge_start + 4])){
+            var temp = merge_array[merge_start + 1];
+            var temp2 = merge_array[merge_start + 2];
+            var temp3 = merge_array[merge_start + 3];
+            merge_array[merge_start + 1] = merge_array[merge_start + 4];
+            merge_array[merge_start + 2] = temp;
+            merge_array[merge_start + 3] = temp2;
+            merge_array[merge_start + 4] = temp3;
+        }
+        else if (hex_sort(merge_array[merge_start + 2], merge_array[merge_start+4])){
+            var temp = merge_array[merge_start + 2];
+            var temp2 = merge_array[merge_start + 3];
+            merge_array[merge_start + 2] = merge_array[merge_start + 4];
+            merge_array[merge_start + 3] = temp;
+            merge_array[merge_start + 4] = temp2;
+        }
+        else if (hex_sort(merge_array[merge_start + 3], merge_array[merge_start+4])){
+            var temp = merge_array[merge_start + 3];
+            merge_array[merge_start + 3] = merge_array[merge_start + 4];
+            merge_array[merge_start + 4] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 2], merge_array[merge_start + 5])){
+            var temp = merge_array[merge_start + 2];
+            var temp2 = merge_array[merge_start + 3];
+            var temp3 = merge_array[merge_start + 4];
+            merge_array[merge_start + 2] = merge_array[merge_start + 5];
+            merge_array[merge_start + 3] = temp;
+            merge_array[merge_start + 4] = temp2;
+            merge_array[merge_start + 5] = temp3;
+        }
+        else if (hex_sort(merge_array[merge_start + 3], merge_array[merge_start+5])){
+            var temp = merge_array[merge_start + 3];
+            var temp2 = merge_array[merge_start + 4];
+            merge_array[merge_start + 3] = merge_array[merge_start + 5];
+            merge_array[merge_start + 4] = temp;
+            merge_array[merge_start + 5] = temp2;
+        }
+        else if (hex_sort(merge_array[merge_start + 4], merge_array[merge_start+5])){
+            var temp = merge_array[merge_start + 4];
+            merge_array[merge_start + 4] = merge_array[merge_start + 5];
+            merge_array[merge_start + 5] = temp;
+        }
+        else{
+            merge_start += 6;
+        }
+        if(merge_start == arr_length){
+            merge_sub_array_length = 6;
+            merge_start = 0;
+        }
+        return;
+    }
+    else if(merge_sub_array_length == 6){
+        if(hex_sort(merge_array[merge_start], merge_array[merge_start+6])){
+            var temp = merge_array[merge_start];
+            var temp2 = merge_array[merge_start + 1];
+            var temp3 = merge_array[merge_start + 2];
+            var temp4 = merge_array[merge_start + 3];
+            var temp5 = merge_array[merge_start + 4];
+            var temp6 = merge_array[merge_start + 5];
+            merge_array[merge_start] = merge_array[merge_start + 6];
+            merge_array[merge_start + 1] = temp;
+            merge_array[merge_start + 2] = temp2;
+            merge_array[merge_start + 3] = temp3;
+            merge_array[merge_start + 4] = temp4;
+            merge_array[merge_start + 5] = temp5;
+            merge_array[merge_start + 6] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 1], merge_array[merge_start+6])){
+            var temp = merge_array[merge_start + 1];
+            var temp2 = merge_array[merge_start + 2];
+            var temp3 = merge_array[merge_start + 3];
+            var temp4 = merge_array[merge_start + 4];
+            var temp5 = merge_array[merge_start + 5];
+            merge_array[merge_start+1] = merge_array[merge_start + 6];
+            merge_array[merge_start + 2] = temp;
+            merge_array[merge_start + 3] = temp2;
+            merge_array[merge_start + 4] = temp3;
+            merge_array[merge_start + 5] = temp4;
+            merge_array[merge_start + 6] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 2], merge_array[merge_start+6])){
+            var temp = merge_array[merge_start + 2];
+            var temp2 = merge_array[merge_start + 3];
+            var temp3 = merge_array[merge_start + 4];
+            var temp4 = merge_array[merge_start + 5];
+            merge_array[merge_start + 2] = merge_array[merge_start + 6];
+            merge_array[merge_start + 3] = temp;
+            merge_array[merge_start + 4] = temp2;
+            merge_array[merge_start + 5] = temp3;
+            merge_array[merge_start + 6] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 3], merge_array[merge_start+6])){
+            var temp = merge_array[merge_start + 3];
+            var temp2 = merge_array[merge_start + 4];
+            var temp3 = merge_array[merge_start + 5];
+            merge_array[merge_start + 3] = merge_array[merge_start + 6];
+            merge_array[merge_start + 4] = temp;
+            merge_array[merge_start + 5] = temp2;
+            merge_array[merge_start + 6] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 4], merge_array[merge_start+6])){
+            var temp = merge_array[merge_start + 4];
+            var temp2 = merge_array[merge_start + 5];
+            merge_array[merge_start + 4] = merge_array[merge_start + 6];
+            merge_array[merge_start + 5] = temp;
+            merge_array[merge_start + 6] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 5], merge_array[merge_start+6])){
+            var temp = merge_array[merge_start + 5];
+            merge_array[merge_start + 5] = merge_array[merge_start + 6];
+            merge_array[merge_start + 6] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 1], merge_array[merge_start+7])){
+            var temp = merge_array[merge_start + 1];
+            var temp2 = merge_array[merge_start + 2];
+            var temp3 = merge_array[merge_start + 3];
+            var temp4 = merge_array[merge_start + 4];
+            var temp5 = merge_array[merge_start + 5];
+            var temp6 = merge_array[merge_start + 6];
+            merge_array[merge_start + 1] = merge_array[merge_start + 7];
+            merge_array[merge_start + 2] = temp;
+            merge_array[merge_start + 3] = temp2;
+            merge_array[merge_start + 4] = temp3;
+            merge_array[merge_start + 5] = temp4;
+            merge_array[merge_start + 6] = temp5;
+            merge_array[merge_start + 7] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 2], merge_array[merge_start+7])){
+            var temp = merge_array[merge_start + 2];
+            var temp2 = merge_array[merge_start + 3];
+            var temp3 = merge_array[merge_start + 4];
+            var temp4 = merge_array[merge_start + 5];
+            var temp5 = merge_array[merge_start + 6];
+            merge_array[merge_start + 2] = merge_array[merge_start + 7];
+            merge_array[merge_start + 3] = temp;
+            merge_array[merge_start + 4] = temp2;
+            merge_array[merge_start + 5] = temp3;
+            merge_array[merge_start + 6] = temp4;
+            merge_array[merge_start + 7] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 3], merge_array[merge_start+7])){
+            var temp = merge_array[merge_start + 3];
+            var temp2 = merge_array[merge_start + 4];
+            var temp3 = merge_array[merge_start + 5];
+            var temp4 = merge_array[merge_start + 6];
+            merge_array[merge_start + 3] = merge_array[merge_start + 7];
+            merge_array[merge_start + 4] = temp;
+            merge_array[merge_start + 5] = temp2;
+            merge_array[merge_start + 6] = temp3;
+            merge_array[merge_start + 7] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 4], merge_array[merge_start + 7])){
+            var temp = merge_array[merge_start + 4];
+            var temp2 = merge_array[merge_start + 5];
+            var temp3 = merge_array[merge_start + 6];
+            merge_array[merge_start + 4] = merge_array[merge_start + 7];
+            merge_array[merge_start + 5] = temp;
+            merge_array[merge_start + 6] = temp2;
+            merge_array[merge_start + 7] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 5], merge_array[merge_start + 7])){
+            var temp = merge_array[merge_start + 5];
+            var temp2 = merge_array[merge_start + 6];
+            merge_array[merge_start + 5] = merge_array[merge_start + 7];
+            merge_array[merge_start + 6] = temp;
+            merge_array[merge_start + 7] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 6], merge_array[merge_start + 7])){
+            var temp = merge_array[merge_start + 6];
+            merge_array[merge_start + 6] = merge_array[merge_start + 7];
+            merge_array[merge_start + 7] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 2], merge_array[merge_start+8])){
+            var temp = merge_array[merge_start + 2];
+            var temp2 = merge_array[merge_start + 3];
+            var temp3 = merge_array[merge_start + 4];
+            var temp4 = merge_array[merge_start + 5];
+            var temp5 = merge_array[merge_start + 6];
+            var temp6 = merge_array[merge_start + 7];
+            merge_array[merge_start + 2] = merge_array[merge_start + 8];
+            merge_array[merge_start + 3] = temp;
+            merge_array[merge_start + 4] = temp2;
+            merge_array[merge_start + 5] = temp3;
+            merge_array[merge_start + 6] = temp4;
+            merge_array[merge_start + 7] = temp5;
+            merge_array[merge_start + 8] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 3], merge_array[merge_start + 8])){
+            var temp = merge_array[merge_start + 3];
+            var temp2 = merge_array[merge_start + 4];
+            var temp3 = merge_array[merge_start + 5];
+            var temp4 = merge_array[merge_start + 6];
+            var temp5 = merge_array[merge_start + 7];
+            merge_array[merge_start + 3] = merge_array[merge_start + 8];
+            merge_array[merge_start + 4] = temp;
+            merge_array[merge_start + 5] = temp2;
+            merge_array[merge_start + 6] = temp3;
+            merge_array[merge_start + 7] = temp4;
+            merge_array[merge_start + 8] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 4], merge_array[merge_start+8])){
+            var temp = merge_array[merge_start + 4];
+            var temp2 = merge_array[merge_start + 5];
+            var temp3 = merge_array[merge_start + 6];
+            var temp4 = merge_array[merge_start + 7];
+            merge_array[merge_start + 4] = merge_array[merge_start + 8];
+            merge_array[merge_start + 5] = temp;
+            merge_array[merge_start + 6] = temp2;
+            merge_array[merge_start + 7] = temp3;
+            merge_array[merge_start + 8] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 5], merge_array[merge_start + 8])){
+            var temp = merge_array[merge_start + 5];
+            var temp2 = merge_array[merge_start + 6];
+            var temp3 = merge_array[merge_start + 7];
+            merge_array[merge_start + 5] = merge_array[merge_start + 8];
+            merge_array[merge_start + 6] = temp;
+            merge_array[merge_start + 7] = temp2;
+            merge_array[merge_start + 8] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 6], merge_array[merge_start + 8])){
+            var temp = merge_array[merge_start + 6];
+            var temp2 = merge_array[merge_start + 7];
+            merge_array[merge_start + 6] = merge_array[merge_start + 8];
+            merge_array[merge_start + 7] = temp;
+            merge_array[merge_start + 8] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 7], merge_array[merge_start + 8])){
+            var temp = merge_array[merge_start + 7];
+            merge_array[merge_start + 7] = merge_array[merge_start + 8];
+            merge_array[merge_start + 8] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 3], merge_array[merge_start+9])){
+            var temp = merge_array[merge_start + 3];
+            var temp2 = merge_array[merge_start + 4];
+            var temp3 = merge_array[merge_start + 5];
+            var temp4 = merge_array[merge_start + 6];
+            var temp5 = merge_array[merge_start + 7];
+            var temp6 = merge_array[merge_start + 8];
+            merge_array[merge_start + 3] = merge_array[merge_start + 9];
+            merge_array[merge_start + 4] = temp;
+            merge_array[merge_start + 5] = temp2;
+            merge_array[merge_start + 6] = temp3;
+            merge_array[merge_start + 7] = temp4;
+            merge_array[merge_start + 8] = temp5;
+            merge_array[merge_start + 9] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 4], merge_array[merge_start + 9])){
+            var temp = merge_array[merge_start + 4];
+            var temp2 = merge_array[merge_start + 5];
+            var temp3 = merge_array[merge_start + 6];
+            var temp4 = merge_array[merge_start + 7];
+            var temp5 = merge_array[merge_start + 8];
+            merge_array[merge_start + 4] = merge_array[merge_start + 9];
+            merge_array[merge_start + 5] = temp;
+            merge_array[merge_start + 6] = temp2;
+            merge_array[merge_start + 7] = temp3;
+            merge_array[merge_start + 8] = temp4;
+            merge_array[merge_start + 9] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 5], merge_array[merge_start+9])){
+            var temp = merge_array[merge_start + 5];
+            var temp2 = merge_array[merge_start + 6];
+            var temp3 = merge_array[merge_start + 7];
+            var temp4 = merge_array[merge_start + 8];
+            merge_array[merge_start + 5] = merge_array[merge_start + 9];
+            merge_array[merge_start + 6] = temp;
+            merge_array[merge_start + 7] = temp2;
+            merge_array[merge_start + 8] = temp3;
+            merge_array[merge_start + 9] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 6], merge_array[merge_start + 9])){
+            var temp = merge_array[merge_start + 6];
+            var temp2 = merge_array[merge_start + 7];
+            var temp3 = merge_array[merge_start + 8];
+            merge_array[merge_start + 6] = merge_array[merge_start + 9];
+            merge_array[merge_start + 7] = temp;
+            merge_array[merge_start + 8] = temp2;
+            merge_array[merge_start + 9] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 7], merge_array[merge_start + 9])){
+            var temp = merge_array[merge_start + 7];
+            var temp2 = merge_array[merge_start + 8];
+            merge_array[merge_start + 7] = merge_array[merge_start + 9];
+            merge_array[merge_start + 8] = temp;
+            merge_array[merge_start + 9] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 8], merge_array[merge_start + 9])){
+            var temp = merge_array[merge_start + 8];
+            merge_array[merge_start + 8] = merge_array[merge_start + 9];
+            merge_array[merge_start + 9] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 4], merge_array[merge_start + 10])){
+            var temp = merge_array[merge_start + 4];
+            var temp2 = merge_array[merge_start + 5];
+            var temp3 = merge_array[merge_start + 6];
+            var temp4 = merge_array[merge_start + 7];
+            var temp5 = merge_array[merge_start + 8];
+            var temp6 = merge_array[merge_start + 9];
+            merge_array[merge_start + 4] = merge_array[merge_start + 10];
+            merge_array[merge_start + 5] = temp;
+            merge_array[merge_start + 6] = temp2;
+            merge_array[merge_start + 7] = temp3;
+            merge_array[merge_start + 8] = temp4;
+            merge_array[merge_start + 9] = temp5;
+            merge_array[merge_start + 10] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 5], merge_array[merge_start + 10])){
+            var temp = merge_array[merge_start + 5];
+            var temp2 = merge_array[merge_start + 6];
+            var temp3 = merge_array[merge_start + 7];
+            var temp4 = merge_array[merge_start + 8];
+            var temp5 = merge_array[merge_start + 9];
+            merge_array[merge_start + 5] = merge_array[merge_start + 10];
+            merge_array[merge_start + 6] = temp;
+            merge_array[merge_start + 7] = temp2;
+            merge_array[merge_start + 8] = temp3;
+            merge_array[merge_start + 9] = temp4;
+            merge_array[merge_start + 10] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 6], merge_array[merge_start + 10])){
+            var temp = merge_array[merge_start + 6];
+            var temp2 = merge_array[merge_start + 7];
+            var temp3 = merge_array[merge_start + 8];
+            var temp4 = merge_array[merge_start + 9];
+            merge_array[merge_start + 6] = merge_array[merge_start + 10];
+            merge_array[merge_start + 7] = temp;
+            merge_array[merge_start + 8] = temp2;
+            merge_array[merge_start + 9] = temp3;
+            merge_array[merge_start + 10] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 7], merge_array[merge_start + 10])){
+            var temp = merge_array[merge_start + 7];
+            var temp2 = merge_array[merge_start + 8];
+            var temp3 = merge_array[merge_start + 9];
+            merge_array[merge_start + 7] = merge_array[merge_start + 10];
+            merge_array[merge_start + 8] = temp;
+            merge_array[merge_start + 9] = temp2;
+            merge_array[merge_start + 10] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 8], merge_array[merge_start + 10])){
+            var temp = merge_array[merge_start + 8];
+            var temp2 = merge_array[merge_start + 9];
+            merge_array[merge_start + 8] = merge_array[merge_start + 10];
+            merge_array[merge_start + 9] = temp;
+            merge_array[merge_start + 10] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 9], merge_array[merge_start + 10])){
+            var temp = merge_array[merge_start + 9];
+            merge_array[merge_start + 9] = merge_array[merge_start + 10];
+            merge_array[merge_start + 10] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 5], merge_array[merge_start + 11])){
+            var temp = merge_array[merge_start + 5];
+            var temp2 = merge_array[merge_start + 6];
+            var temp3 = merge_array[merge_start + 7];
+            var temp4 = merge_array[merge_start + 8];
+            var temp5 = merge_array[merge_start + 9];
+            var temp6 = merge_array[merge_start + 10];
+            merge_array[merge_start + 5] = merge_array[merge_start + 11];
+            merge_array[merge_start + 6] = temp;
+            merge_array[merge_start + 7] = temp2;
+            merge_array[merge_start + 8] = temp3;
+            merge_array[merge_start + 9] = temp4;
+            merge_array[merge_start + 10] = temp5;
+            merge_array[merge_start + 11] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 6], merge_array[merge_start + 11])){
+            var temp = merge_array[merge_start + 6];
+            var temp2 = merge_array[merge_start + 7];
+            var temp3 = merge_array[merge_start + 8];
+            var temp4 = merge_array[merge_start + 9];
+            var temp5 = merge_array[merge_start + 10];
+            merge_array[merge_start + 6] = merge_array[merge_start + 11];
+            merge_array[merge_start + 7] = temp;
+            merge_array[merge_start + 8] = temp2;
+            merge_array[merge_start + 9] = temp3;
+            merge_array[merge_start + 10] = temp4;
+            merge_array[merge_start + 11] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 7], merge_array[merge_start + 11])){
+            var temp = merge_array[merge_start + 7];
+            var temp2 = merge_array[merge_start + 8];
+            var temp3 = merge_array[merge_start + 9];
+            var temp4 = merge_array[merge_start + 10];
+            merge_array[merge_start + 7] = merge_array[merge_start + 11];
+            merge_array[merge_start + 8] = temp;
+            merge_array[merge_start + 9] = temp2;
+            merge_array[merge_start + 10] = temp3;
+            merge_array[merge_start + 11] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 8], merge_array[merge_start + 11])){
+            var temp = merge_array[merge_start + 8];
+            var temp2 = merge_array[merge_start + 9];
+            var temp3 = merge_array[merge_start + 10];
+            merge_array[merge_start + 8] = merge_array[merge_start + 11];
+            merge_array[merge_start + 9] = temp;
+            merge_array[merge_start + 10] = temp2;
+            merge_array[merge_start + 11] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 9], merge_array[merge_start + 11])){
+            var temp = merge_array[merge_start + 9];
+            var temp2 = merge_array[merge_start + 10];
+            merge_array[merge_start + 9] = merge_array[merge_start + 11];
+            merge_array[merge_start + 10] = temp;
+            merge_array[merge_start + 11] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 10], merge_array[merge_start + 11])){
+            var temp = merge_array[merge_start + 10];
+            merge_array[merge_start + 10] = merge_array[merge_start + 11];
+            merge_array[merge_start + 11] = temp;
+        }
+        else if(hex_sort(merge_array[merge_start + 6], merge_array[merge_start + 12])){
+            var temp = merge_array[merge_start + 6];
+            var temp2 = merge_array[merge_start + 7];
+            var temp3 = merge_array[merge_start + 8];
+            var temp4 = merge_array[merge_start + 9];
+            var temp5 = merge_array[merge_start + 10];
+            var temp6 = merge_array[merge_start + 11];
+            merge_array[merge_start + 6] = merge_array[merge_start + 12];
+            merge_array[merge_start + 7] = temp;
+            merge_array[merge_start + 8] = temp2;
+            merge_array[merge_start + 9] = temp3;
+            merge_array[merge_start + 10] = temp4;
+            merge_array[merge_start + 11] = temp5;
+            merge_array[merge_start + 12] = temp6;
+        }
+        else if(hex_sort(merge_array[merge_start + 7], merge_array[merge_start + 12])){
+            var temp = merge_array[merge_start + 7];
+            var temp2 = merge_array[merge_start + 8];
+            var temp3 = merge_array[merge_start + 9];
+            var temp4 = merge_array[merge_start + 10];
+            var temp5 = merge_array[merge_start + 11];
+            merge_array[merge_start + 7] = merge_array[merge_start + 12];
+            merge_array[merge_start + 8] = temp;
+            merge_array[merge_start + 9] = temp2;
+            merge_array[merge_start + 10] = temp3;
+            merge_array[merge_start + 11] = temp4;
+            merge_array[merge_start + 12] = temp5;
+        }
+        else if(hex_sort(merge_array[merge_start + 8], merge_array[merge_start + 12])){
+            var temp = merge_array[merge_start + 8];
+            var temp2 = merge_array[merge_start + 9];
+            var temp3 = merge_array[merge_start + 10];
+            var temp4 = merge_array[merge_start + 11];
+            merge_array[merge_start + 8] = merge_array[merge_start + 12];
+            merge_array[merge_start + 9] = temp;
+            merge_array[merge_start + 10] = temp2;
+            merge_array[merge_start + 11] = temp3;
+            merge_array[merge_start + 12] = temp4;
+        }
+        else if(hex_sort(merge_array[merge_start + 9], merge_array[merge_start + 12])){
+            var temp = merge_array[merge_start + 9];
+            var temp2 = merge_array[merge_start + 10];
+            var temp3 = merge_array[merge_start + 11];
+            merge_array[merge_start + 9] = merge_array[merge_start + 12];
+            merge_array[merge_start + 10] = temp;
+            merge_array[merge_start + 11] = temp2;
+            merge_array[merge_start + 12] = temp3;
+        }
+        else if(hex_sort(merge_array[merge_start + 10], merge_array[merge_start + 12])){
+            var temp = merge_array[merge_start + 10];
+            var temp2 = merge_array[merge_start + 11];
+            merge_array[merge_start + 10] = merge_array[merge_start + 12];
+            merge_array[merge_start + 11] = temp;
+            merge_array[merge_start + 12] = temp2;
+        }
+        else if(hex_sort(merge_array[merge_start + 11], merge_array[merge_start + 12])){
+            var temp = merge_array[merge_start + 11];
+            merge_array[merge_start + 11] = merge_array[merge_start + 12];
+            merge_array[merge_start + 12] = temp;
+        }
+        else {
+            winner = "merge";
+        }
+        return;
     }
 
-    var mid = Math.floor(arr.length / 2);
-    var subLeft = mergeSort(arr.slice(0, mid));
-    var subRight = mergeSort(arr.slice(mid));
-
-    return merge(subLeft, subRight);
 }
 
-function merge (node1, node2) {
-    var result = [];
-    while (node1.length > 0 && node2.length > 0)
-        result.push(node1[0] < node2[0]? node1.shift() : node2.shift());
-    return result.concat(node1.length? node1 : node2);
-}
+
