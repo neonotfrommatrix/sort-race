@@ -26,7 +26,7 @@ function FindLow()
 }
 function FindHigh()
 {
-	for (var i = 0; i < 12; ++i)
+	for (var i = 0; i < arr_length; ++i)
 	{
 		if ((qsBoolLow == true) && (qsState[i] == false) && (i>=qsLow))
 		{
@@ -37,9 +37,20 @@ function FindHigh()
 			return;
 		}
 	}
-	qsHigh = 11;
+	qsHigh = arr_length-1;
 	qsBoolLow = false;
 	return;
+}
+function Finished()
+{
+    for (var i = 0; i < arr_length; ++i)
+    {
+        if (qsState[i]==true)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 // var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
@@ -155,6 +166,10 @@ function stepQuicksort(){
         qsIndex = qsLow;
         qsIP = qsLow - 1;
         qsPivot = quick_array[qsHigh];
+    }
+    if(Finished())
+    {
+        winner = "quick";
     }
     return;
  }
