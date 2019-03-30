@@ -1,4 +1,3 @@
-/* C implementation QuickSort */
 #include<stdio.h> 
 #include<iostream>
 
