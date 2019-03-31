@@ -3,7 +3,7 @@ var winner = null;                  //holds winner name when it is declared
 var merge_start = 0;                //position within array to start sort at
 var merge_sub_array_length = 1;     //position within sorting algorithm
 
-//quicksort globals and helper functions
+//quicksort globals and helper functions=================================================================================
 var qsState = [true,true,true,true,true,true,true,true,true,true,true,true];
 var qsLow = 0;
 var qsHigh = 11;
@@ -52,6 +52,9 @@ function Finished()
     }
     return true;
 }
+//=====================================================================================================================
+
+
 
 // var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
 //  "1","6","3","8","9","4","0","A","5","2","B","7","1","9","8","4","1","B","3","8","2","6","2","5",
@@ -134,7 +137,7 @@ function hex_sort(hex_one, hex_two){
 function stepInsertionSort(){
     //continue;
 }
-
+//===================================================================================================
 function stepQuicksort(){
     if(qsFirstTime)
     {
@@ -173,7 +176,7 @@ function stepQuicksort(){
     }
     return;
  }
-
+//=============================================================================================================================
 //uses sub_array length to decide sorting intensity, sorts first by 3 then 6 to sort all 12 items.
 function stepMergeSort(){
 
