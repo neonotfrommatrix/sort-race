@@ -103,9 +103,7 @@ function swap(x, y){
 function stepMergeSort(){
     if(merge_sub_array_length == 1){
         if (hex_sort(merge_array[merge_start], merge_array[merge_start+1])){
-            var temp = merge_array[merge_start];
-            merge_array[merge_start] = merge_array[merge_start + 1];
-            merge_array[merge_start + 1] = temp;
+            swap(1,1);
         }
         merge_start += 3;
         if(merge_start == arr_length){
@@ -116,16 +114,10 @@ function stepMergeSort(){
     }
     else if(merge_sub_array_length == 2){
         if(hex_sort(merge_array[merge_start], merge_array[merge_start+2])){
-            var temp = merge_array[merge_start];
-            var temp2 = merge_array[merge_start + 1];
-            merge_array[merge_start] = merge_array[merge_start + 2];
-            merge_array[merge_start + 1] = temp;
-            merge_array[merge_start + 2] = temp2;
+            swap(2,2);
         }
         else if (hex_sort(merge_array[merge_start+1], merge_array[merge_start+2])){
-            var temp = merge_array[merge_start+1];
-            merge_array[merge_start+1] = merge_array[merge_start + 2];
-            merge_array[merge_start + 2] = temp;
+            swap(2,1);
         }
         merge_start += 3;
         if(merge_start == arr_length){
@@ -138,7 +130,7 @@ function stepMergeSort(){
     }
     else if(merge_sub_array_length == 3){
         
-        /*
+        /*  // Test a function to remove if - else if - else
         var notDone = true;
         
         while(notDone){
