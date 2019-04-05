@@ -5,6 +5,58 @@ var merge_sub_array_length = 1;     //position within sorting algorithm
 var merge_x = 0;
 var merge_y = 0;
 
+//quicksort globals and helper functions=================================================================================
+var qsState = [true,true,true,true,true,true,true,true,true,true,true,true];
+var qsLow = 0;
+var qsHigh = 11;
+var qsPivot;
+var qsIP = (qsLow -1);
+var qsIndex = 0;
+var qsBoolLow = false;
+var qsFirstTime = true;
+function FindLow()
+{
+    for (var i = 0; i < arr_length; ++i)
+    {
+        if ((qsBoolLow == false) && (qsState[i] == true))
+		{
+			qsLow = i;
+			qsBoolLow = true;
+			return;
+        }
+    }
+}
+function FindHigh()
+{
+	for (var i = 0; i < arr_length; ++i)
+	{
+		if ((qsBoolLow == true) && (qsState[i] == false) && (i>=qsLow))
+		{
+			qsHigh = i - 1;
+			if (qsHigh == -1)
+				qsHigh = 0;
+			qsBoolLow = false;
+			return;
+		}
+	}
+	qsHigh = arr_length-1;
+	qsBoolLow = false;
+	return;
+}
+function Finished()
+{
+    for (var i = 0; i < arr_length; ++i)
+    {
+        if (qsState[i]==true)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+//=====================================================================================================================
+
+
 // var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
 //  "1","6","3","8","9","4","0","A","5","2","B","7","1","9","8","4","1","B","3","8","2","6","2","5",
 //  "2","9","7","B","4","0","1","6","3","8","A","5","2","6","1","0","9","4","8","7","8","6","2","6",
@@ -87,9 +139,48 @@ function stepInsertionSort(){
     //continue;
 }
 
+//===================================================================================================
 function stepQuicksort(){
-    //continue;
-}
+    if(qsFirstTime)
+    {
+        qsPivot = quick_array[qsHigh];
+        qsFirstTime=false;
+    }
+    if (qsIndex <= qsHigh)
+    {
+        if (quick_array[qsIndex] <= qsPivot)
+        {
+            qsIP++;
+            var temp = quick_array[qsIndex];
+            quick_array[qsIndex]=quick_array[qsIP];
+            quick_array[qsIP]=temp;
+        }
+        qsIndex++;
+    }
+    else
+    {
+        qsState[qsIP] = 0;
+        FindLow();
+        FindHigh();
+        if (qsLow == qsHigh)
+        {	
+            qsState[qsIP-1] = 0;
+            FindLow();
+            FindHigh();
+        }
+        qsIndex = qsLow;
+        qsIP = qsLow - 1;
+        qsPivot = quick_array[qsHigh];
+    }
+    if(Finished())
+    {
+        winner = "quick";
+    }
+    return;
+ }
+//=============================================================================================================================
+//uses sub_array length to decide sorting intensity, sorts first by 3 then 6 to sort all 12 items.
+
 
 function swap(x, y){
     var temp = merge_array[merge_start + x];
