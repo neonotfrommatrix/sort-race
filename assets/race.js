@@ -5,6 +5,7 @@ var merge_start = 0;                //position within array to start sort at
 var merge_sub_array_length = 1;     //position within sorting algorithm
 var merge_x = 0;
 var merge_y = 0;
+var merge_pos = 0;
 
 //insertion Sort Global Variaables
 var insert_array = [];
@@ -71,10 +72,10 @@ function Finished()
 var all_arrays = [
 	["0","B","A","3","2","8","4","7","6","5","1","9"], ["0","A","9","8","1","A","3","9","2","0","1","1"],
 	["1","6","3","8","9","4","0","A","5","2","B","7"], ["1","9","8","4","1","B","3","8","2","6","2","5"],
-    	["2","9","7","B","4","0","1","6","3","8","A","5"], ["2","6","1","0","9","4","8","7","8","6","2","6"],
-    	["3","4","5","7","1","9","2","0","6","8","B","A"], ["3","5","6","A","A","0","2","3","B","7","2","4"],
-    	["4","0","6","0","7","9","A","2","1","8","3","5"], ["4","B","B","0","6","5","6","6","7","1","0","A"],
-    	["5","2","8","1","A","B","3","4","7","9","0","6"], ["5","7","5","0","6","8","4","B","8","9","3","4"],
+    ["2","9","7","B","4","0","1","6","3","8","A","5"], ["2","6","1","0","9","4","8","7","8","6","2","6"],
+    ["3","4","5","7","1","9","2","0","6","8","B","A"], ["3","5","6","A","A","0","2","3","B","7","2","4"],
+    ["4","0","6","0","7","9","A","2","1","8","3","5"], ["4","B","B","0","6","5","6","6","7","1","0","A"],
+    ["5","2","8","1","A","B","3","4","7","9","0","6"], ["5","7","5","0","6","8","4","B","8","9","3","4"],
 	["6","9","8","7","2","B","3","A","5","4","1","0"], ["6","A","2","3","0","5","3","0","4","7","8","1"],
 	["7","0","1","A","6","9","3","5","4","2","B","8"], ["7","8","5","2","8","6","1","0","3","4","2","9"],
 	["8","7","3","A","9","4","2","5","B","1","6","0"], ["8","A","1","5","9","3","4","7","9","0","8","5"],
@@ -151,11 +152,11 @@ function stepInsertionSort(){
 	{
 		if (direction == FORWARD)
 		{
-			if (arr[ins_i] < arr[ins_i - 1])
+			if (insert_array[ins_i] < insert_array[ins_i - 1])
 			{
-				tmp = arr[ins_i];
-				arr[ins_i] = arr[ins_i - 1];
-				arr[ins_i - 1] = tmp;
+				tmp = insert_array[ins_i];
+				insert_array[ins_i] = insert_array[ins_i - 1];
+				insert_array[ins_i - 1] = tmp;
 				direction = BACK;
 				ins_j = ins_i - 1;
 			}
@@ -166,11 +167,11 @@ function stepInsertionSort(){
 		}
 		else // Direction is BACK
 		{
-			if (arr[ins_j] < arr[ins_j - 1])
+			if (insert_array[ins_j] < insert_array[ins_j - 1])
 			{
-				tmp = arr[ins_j];
-				arr[ins_j] = arr[ins_j - 1];
-				arr[ins_j - 1] = tmp;
+				tmp = insert_array[ins_j];
+				insert_array[ins_j] = insert_array[ins_j - 1];
+				insert_array[ins_j - 1] = tmp;
 				ins_j--;
 			}
 			else
@@ -266,19 +267,23 @@ function stepMergeSort(){
         return;
     }
     else if(merge_sub_array_length == 3){
-        
-        /*  // Test a function to remove if - else if - else
+        /*
+        // Test a function to remove if - else if - else
         var notDone = true;
         
         while(notDone){
-            if(hex_sort(merge_array[merge_start], merge_array[merge_start+merge_sub_array_length])){
+            console.log('start');
+            if(hex_sort(merge_array[merge_start+merge_pos], merge_array[merge_start+merge_x])){
                 swap(merge_x,merge_y);
+                merge_pos += 1;
                 notDone = false;
+                console.log('problem 1')
             }
             merge_y -= 1;
             if(merge_y = 0){
                 merge_y = merge_sub_array_length;
                 merge_x +=1;
+                merge_pos -=1;
             }
             if(merge_x == merge_sub_array_length * 2){
                 merge_start += 6
@@ -288,6 +293,7 @@ function stepMergeSort(){
                 merge_start = 0;
                 notDone = false;
             }
+            console.log('problem main');
         }
         */
         
@@ -326,6 +332,7 @@ function stepMergeSort(){
             merge_start = 0;
         }
         return;
+        
     }
     else if(merge_sub_array_length == 6){
         if(hex_sort(merge_array[merge_start], merge_array[merge_start+6])){
@@ -462,6 +469,7 @@ function stepMergeSort(){
 
 }
 
+/*
 function race_manager()
 {
 	//Pick a random array out of the 24 possibilities
@@ -480,3 +488,4 @@ function race_manager()
 		//Redraw each array
 	}
 }
+*/
