@@ -5,6 +5,17 @@ var merge_sub_array_length = 1;     //position within sorting algorithm
 var merge_x = 0;
 var merge_y = 0;
 
+//insertion sort variables =============================================================================================
+var arr[];
+var length = 12;
+var ins_i = 1;
+var ins_j = 0;
+var tmp;
+var insertionDone = false;
+var FORWARD = 0;
+var BACK = 1;
+var direction = FORWARD;
+
 //quicksort globals and helper functions=================================================================================
 var qsState = [true,true,true,true,true,true,true,true,true,true,true,true];
 var qsLow = 0;
@@ -134,9 +145,51 @@ function hex_sort(hex_one, hex_two){
         return false;
     }
 }
-
+// ==================================================================================================
 function stepInsertionSort(){
-    //continue;
+    if (ins_j == 0)
+	{
+		direction = FORWARD;
+	}
+	if (ins_i < length)
+	{
+		if (direction == FORWARD)
+		{
+			if (arr[ins_i] < arr[ins_i - 1])
+			{
+				tmp = arr[ins_i];
+				arr[ins_i] = arr[ins_i - 1];
+				arr[ins_i - 1] = tmp;
+				direction = BACK;
+				ins_j = ins_i - 1;
+			}
+			else
+			{
+				ins_i++;
+			}
+		}
+		else // Direction is BACK
+		{
+			if (arr[ins_j] < arr[ins_j - 1])
+			{
+				tmp = arr[ins_j];
+				arr[ins_j] = arr[ins_j - 1];
+				arr[ins_j - 1] = tmp;
+				ins_j--;
+			}
+			else
+			{
+				direction = FORWARD;
+			}
+		}
+	}
+	else
+	{
+		insertionDone = true;
+	}
+	
+	//call to update UI
+}
 }
 
 //===================================================================================================
