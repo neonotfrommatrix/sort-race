@@ -1,3 +1,4 @@
+var merge_array = [];
 var arr_length = 12;                //length of array
 var winner = null;                  //holds winner name when it is declared
 var merge_start = 0;                //position within array to start sort at
@@ -5,7 +6,18 @@ var merge_sub_array_length = 1;     //position within sorting algorithm
 var merge_x = 0;
 var merge_y = 0;
 
+//insertion Sort Global Variaables
+var insert_array = [];
+var length = 12;
+var ins_i = 1;
+var ins_j = 0;
+var tmp;
+var FORWARD = 0;
+var BACK = 1;
+var direction = FORWARD;
+
 //quicksort globals and helper functions=================================================================================
+var quick_array = [];
 var qsState = [true,true,true,true,true,true,true,true,true,true,true,true];
 var qsLow = 0;
 var qsHigh = 11;
@@ -56,26 +68,21 @@ function Finished()
 }
 //=====================================================================================================================
 
+var all_arrays = [
+	["0","B","A","3","2","8","4","7","6","5","1","9"], ["0","A","9","8","1","A","3","9","2","0","1","1"],
+	["1","6","3","8","9","4","0","A","5","2","B","7"], ["1","9","8","4","1","B","3","8","2","6","2","5"],
+    	["2","9","7","B","4","0","1","6","3","8","A","5"], ["2","6","1","0","9","4","8","7","8","6","2","6"],
+    	["3","4","5","7","1","9","2","0","6","8","B","A"], ["3","5","6","A","A","0","2","3","B","7","2","4"],
+    	["4","0","6","0","7","9","A","2","1","8","3","5"], ["4","B","B","0","6","5","6","6","7","1","0","A"],
+    	["5","2","8","1","A","B","3","4","7","9","0","6"], ["5","7","5","0","6","8","4","B","8","9","3","4"],
+	["6","9","8","7","2","B","3","A","5","4","1","0"], ["6","A","2","3","0","5","3","0","4","7","8","1"],
+	["7","0","1","A","6","9","3","5","4","2","B","8"], ["7","8","5","2","8","6","1","0","3","4","2","9"],
+	["8","7","3","A","9","4","2","5","B","1","6","0"], ["8","A","1","5","9","3","4","7","9","0","8","5"],
+	["9","0","B","3","4","2","7","5","6","1","8","A"], ["9","9","B","5","3","5","1","A","3","3","A","B"],
+	["A","4","0","B","5","8","6","1","7","9","2","3"], ["A","3","9","5","9","A","2","2","A","4","4","4"],
+	["B","8","A","4","6","3","7","9","0","1","5","2"], ["B","6","0","0","5","A","6","2","7","B","2","3"]
+];
 
-// var sortArray = ["0","B","A","3","2","8","4","7","6","5","1","9","0","A","9","8","1","A","3","9","2","0","1","1",
-//  "1","6","3","8","9","4","0","A","5","2","B","7","1","9","8","4","1","B","3","8","2","6","2","5",
-//  "2","9","7","B","4","0","1","6","3","8","A","5","2","6","1","0","9","4","8","7","8","6","2","6",
-//  "3","4","5","7","1","9","2","0","6","8","B","A","3","5","6","A","A","0","2","3","B","7","2","4",
-//  "4","0","6","0","7","9","A","2","1","8","3","5","4","B","B","0","6","5","6","6","7","1","0","A",
-//  "5","2","8","1","A","B","3","4","7","9","0","6","5","7","5","0","6","8","4","B","8","9","3","4"];
-
-// part1 = new Array("0","B","A","3","2","8","4","7","6","5","1","9");
-// part2 = new Array("0","A","9","8","1","A","3","9","2","0","1","1");
-// part3 = new Array("1","6","3","8","9","4","0","A","5","2","B","7");
-// part4 = new Array("1","9","8","4","1","B","3","8","2","6","2","5");
-// part5 = new Array("2","9","7","B","4","0","1","6","3","8","A","5");
-// part6 = new Array("2","6","1","0","9","4","8","7","8","6","2","6");
-// part7 = new Array("3","4","5","7","1","9","2","0","6","8","B","A");
-// part8 = new Array("3","5","6","A","A","0","2","3","B","7","2","4");
-// part9 = new Array("4","0","6","0","7","9","A","2","1","8","3","5");
-// part10 = new Array("4","B","B","0","6","5","6","6","7","1","0","A");
-// part11 = new Array("5","2","8","1","A","B","3","4","7","9","0","6");
-// part12 = new Array("5","7","5","0","6","8","4","B","8","9","3","4");
 
 function draw_grid( rctx, rminor, rmajor, rstroke, rfill  )
 {
@@ -136,7 +143,46 @@ function hex_sort(hex_one, hex_two){
 }
 
 function stepInsertionSort(){
-    //continue;
+    if (ins_j == 0)
+	{
+		direction = FORWARD;
+	}
+	if (ins_i < length)
+	{
+		if (direction == FORWARD)
+		{
+			if (arr[ins_i] < arr[ins_i - 1])
+			{
+				tmp = arr[ins_i];
+				arr[ins_i] = arr[ins_i - 1];
+				arr[ins_i - 1] = tmp;
+				direction = BACK;
+				ins_j = ins_i - 1;
+			}
+			else
+			{
+				ins_i++;
+			}
+		}
+		else // Direction is BACK
+		{
+			if (arr[ins_j] < arr[ins_j - 1])
+			{
+				tmp = arr[ins_j];
+				arr[ins_j] = arr[ins_j - 1];
+				arr[ins_j - 1] = tmp;
+				ins_j--;
+			}
+			else
+			{
+				direction = FORWARD;
+			}
+		}
+	}
+	else
+	{
+		winner = "insertionSort";
+	}
 }
 
 //===================================================================================================
@@ -416,4 +462,21 @@ function stepMergeSort(){
 
 }
 
-
+function race_manager()
+{
+	//Pick a random array out of the 24 possibilities
+	random_array_index = Math.floor((Math.random() * 24));
+	
+	//Initialize all 3 arrays to the random array
+	merge_array = new Array(all_arrays[random_array_index]);
+	quick_array = new Array(all_arrays[random_array_index]);
+	insert_array = new Array(all_arrays[random_array_index]);
+	
+	while(winner == null)
+	{
+		stepInsertionSort();
+		stepMergeSort();
+		stepQuicksort();
+		//Redraw each array
+	}
+}
